@@ -6,7 +6,7 @@
         <label>Password:</label>
         <input type="password" formControlName="password"/>
 
-        <button type="submit" [disabled]="loginForm.invalid">Sign In</button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">Sign In</button>
     </form>
     <ng-container *ngIf="errorMessage">
         <div class="error-message">

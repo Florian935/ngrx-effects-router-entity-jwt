@@ -1,9 +1,11 @@
-<form [formGroup]="editForm" (ngSubmit)="onSubmitForm()">
-    <label>Title</label>
-    <input type="text" formControlName="title" />
+<div class="edit-container">
+    <form [formGroup]="editForm" (ngSubmit)="onSubmitForm()">
+        <label>Title</label>
+        <input type="text" formControlName="title" />
 
-    <label>Body</label>
-    <input type="text" formControlName="body"/>
+        <label>Body</label>
+        <input type="text" formControlName="body"/>
 
-    <button type="submit">Update post</button>
-</form>
+        <button mat-raised-button type="submit" color="primary">Update post</button>
+    </form>
+</div>

@@ -3,14 +3,18 @@
 
 <div>
     <button
+        mat-raised-button
+        color="primary"
         routerLinkActive="active"
         #rlaList="routerLinkActive"
         [routerLink]="['list']"
         [disabled]="rlaList.isActive"
     >
-        All post
+        List
     </button>
     <button
+        mat-raised-button
+        color="primary"
         routerLinkActive="active"
         #rlaAdd="routerLinkActive"
         [routerLink]="['add']"

@@ -1,3 +1,4 @@
+import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { CoreModule } from './core/core.module';
 import { NgModule } from '@angular/core';
@@ -13,6 +14,10 @@ import * as fromLogin from '@login/state';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { CustomRouterStateSerializer } from '@app/state';
+
+const materials = [
+    MatButtonModule
+];
 
 const NgRxModules = [
     StoreModule.forRoot(fromRoot.rootReducerMap),
@@ -33,6 +38,7 @@ const NgRxModules = [
         CoreModule,
         AppRoutingModule,
         NgRxModules,
+        materials,
         BrowserAnimationsModule
     ],
     providers: [],

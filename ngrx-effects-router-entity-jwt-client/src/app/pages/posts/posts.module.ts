@@ -13,9 +13,11 @@ import { EditPostsComponent } from './components/edit-posts/edit-posts.component
 
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { DetailOnePostComponent } from './components/detail-one-post/detail-one-post.component';
+import { MatButtonModule } from '@angular/material/button';
 
 const materials = [
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatButtonModule
 ];
 @NgModule({
     declarations: [

@@ -1,4 +1,12 @@
 .post-container {
-    margin: 20px;
+    margin: 10px;
+
+    .action-buttons {
+        margin-top: 10px;
+
+        button {
+            margin: 5px;
+        }
+    }
 }
 
