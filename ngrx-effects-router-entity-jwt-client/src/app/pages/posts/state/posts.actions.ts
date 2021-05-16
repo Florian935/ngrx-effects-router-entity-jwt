@@ -1,3 +1,4 @@
+import { Update } from '@ngrx/entity';
 import { createAction, props } from '@ngrx/store';
 import { IPost } from 'src/app/shared';
 import { PostsActions } from './posts-actions.enum';
@@ -33,10 +34,10 @@ export const deletePostSuccess = createAction(
 
 export const updatePost = createAction(
     PostsActions.UPDATE_POST,
-    props<{ post: IPost }>()
+    props<{ post: Update<IPost> }>()
 );
 
 export const updatePostSuccess = createAction(
     PostsActions.UPDATE_POST_SUCCESS,
-    props<{ post: IPost }>()
+    props<{ post: Update<IPost> }>()
 );

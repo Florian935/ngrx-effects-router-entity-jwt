@@ -5,6 +5,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import * as fromPosts from '@posts/state';
 import { UnsubscribeOnDestroyAdapter } from '@shared/index';
 import { IPost } from '@shared/interfaces/post.interface';
+import { Update } from '@ngrx/entity';
 @Component({
     selector: 'app-edit-posts',
     templateUrl: './edit-posts.component.html',
@@ -45,7 +46,7 @@ export class EditPostsComponent extends UnsubscribeOnDestroyAdapter implements O
     }
 
     onSubmitForm(): void {
-        const post: IPost = { ...this.post, ...this.editForm.value };
+        const post: Update<IPost> = { ...this.post, ...this.editForm.value };
         this._store.dispatch(fromPosts.updatePost({ post }));
         this._router.navigate(['/posts']);
     }

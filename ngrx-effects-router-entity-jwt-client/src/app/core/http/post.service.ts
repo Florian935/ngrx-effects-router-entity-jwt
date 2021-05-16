@@ -1,3 +1,4 @@
+import { Update } from '@ngrx/entity';
 import { environment } from '@environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -25,7 +26,7 @@ export class PostService {
         return this._http.delete<void>(`${API_BASE_URL}/posts/${postId}`);
     }
 
-    update(post: IPost): Observable<IPost> {
+    update(post: Update<IPost>): Observable<IPost> {
         return this._http.put<IPost>(`${API_BASE_URL}/posts/${post.id}`, post);
     }
 

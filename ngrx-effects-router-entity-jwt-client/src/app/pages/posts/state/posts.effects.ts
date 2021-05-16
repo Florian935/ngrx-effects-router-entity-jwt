@@ -1,3 +1,4 @@
+import { Update } from '@ngrx/entity';
 import { loadPostsSuccess } from './posts.actions';
 import { RouterUrlState } from '@app/state/router/router-url.state';
 import { IPost } from '@shared/index';
@@ -84,7 +85,12 @@ export class PostsEffects {
             ofType(postsActions.updatePost),
             switchMap(({ post }) => {
                 return this._postService.update(post).pipe(
-                    map( (post: IPost) => {
+                    map( (updatedPost: IPost) => {
+                        const post: Update<IPost> = {
+                            id: updatedPost.id,
+                            changes: { ...updatedPost }
+                        };
+
                         return postsActions.updatePostSuccess({ post });
                     }),
                     catchError(unusedError => {
