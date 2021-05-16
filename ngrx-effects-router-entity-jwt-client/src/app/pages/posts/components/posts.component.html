@@ -1,0 +1,22 @@
+<br />
+<br />
+
+<div>
+    <button
+        routerLinkActive="active"
+        #rlaList="routerLinkActive"
+        [routerLink]="['list']"
+        [disabled]="rlaList.isActive"
+    >
+        All post
+    </button>
+    <button
+        routerLinkActive="active"
+        #rlaAdd="routerLinkActive"
+        [routerLink]="['add']"
+        [disabled]="rlaAdd.isActive"
+    >
+    Add post
+    </button>
+</div>
+<router-outlet></router-outlet>

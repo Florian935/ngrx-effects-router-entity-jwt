@@ -1,0 +1,8 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://root:root@localhost:27017/ngrx_database?authSource=admin
+
+jwt:
+  secretKey: thisismysecretkeyandbecauseitsasecretimnotgoingtodivulgateittootherpeoplehereisjustfordemobutinrealappwhynotstorethissecretinthespringcloudconfigservertosepareteconfigfileandconfigpropertiesfromapp
+  validityInMs: 3600000

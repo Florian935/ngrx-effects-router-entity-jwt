@@ -1,0 +1,9 @@
+<form [formGroup]="editForm" (ngSubmit)="onSubmitForm()">
+    <label>Title</label>
+    <input type="text" formControlName="title" />
+
+    <label>Body</label>
+    <input type="text" formControlName="body"/>
+
+    <button type="submit">Update post</button>
+</form>
