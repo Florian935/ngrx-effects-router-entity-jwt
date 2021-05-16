@@ -3,5 +3,6 @@
     <div>Title: {{ post.title }}</div>
     <div>Body: {{ post.body }}</div>
     <button [routerLink]="['edit', post.id]">Update</button>
+    <button [routerLink]="['/posts/details', post.id]">Details</button>
     <button (click)="onDeletePost()">Delete</button>
 </div>

@@ -27,6 +27,15 @@ public class PostController {
         return ResponseEntity.ok(posts);
     }
 
+    @GetMapping(path = "/{id}", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> findById(@PathVariable String id) {
+        final Optional<Post> perhapsPost = postService.findById(id);
+
+        return perhapsPost.isPresent()
+                ? ResponseEntity.ok(perhapsPost)
+                : ResponseEntity.notFound().build();
+    }
+
     @PostMapping(produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<?> insert(@RequestBody Post post) {
         final Post postSaved = postService.insert(post);

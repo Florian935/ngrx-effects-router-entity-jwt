@@ -1,11 +1,13 @@
-import { EditPostsComponent } from './components/edit-posts/edit-posts.component';
-import { PostListComponent } from './components/post-list/post-list.component';
-import { AddPostComponent } from './components/add-post/add-post.component';
-import { PostsComponent } from './components/posts.component';
+import { EditPostsComponent } from '@posts/components/edit-posts/edit-posts.component';
+import { PostListComponent } from '@posts/components/post-list/post-list.component';
+import { AddPostComponent } from '@posts/components/add-post/add-post.component';
+import { PostsComponent } from '@posts/components/posts.component';
+import { DetailOnePostComponent } from '@posts/components/detail-one-post/detail-one-post.component';
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 
 const routes: Routes = [
+    { path: 'details/:id', component: DetailOnePostComponent },
     {
         path: '', component: PostsComponent,
         children: [
@@ -19,7 +21,7 @@ const routes: Routes = [
             },
             { path: 'add', component: AddPostComponent }
         ]
-    }
+    },
 ];
 
 @NgModule({

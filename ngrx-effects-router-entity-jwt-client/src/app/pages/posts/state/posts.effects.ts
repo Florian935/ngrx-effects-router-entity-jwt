@@ -1,11 +1,14 @@
+import { loadPostsSuccess } from './posts.actions';
+import { RouterUrlState } from '@app/state/router/router-url.state';
 import { IPost } from '@shared/index';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { PostService } from '@core/index';
 import * as postsActions from '@posts/state/posts.actions';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { catchError, filter, map, switchMap } from 'rxjs/operators';
 import { EMPTY } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { RouterNavigatedAction, ROUTER_NAVIGATION } from '@ngrx/router-store';
 
 @Injectable()
 export class PostsEffects {
@@ -97,6 +100,35 @@ export class PostsEffects {
         );
     });
 
+    getPostById$ = createEffect(() => {
+        return this._actions$.pipe(
+            ofType(ROUTER_NAVIGATION),
+            filter((router: RouterNavigatedAction) => {
+                return router.payload.routerState.url.startsWith('/posts/details');
+            }),
+            map((router: RouterNavigatedAction) => {
+                const routerState: RouterUrlState = router.payload.routerState as unknown as RouterUrlState;
+                return routerState.params.id;
+            }),
+            switchMap((id: string) => {
+                return this._postService.getById(id).pipe(
+                    map((post: IPost) => {
+                        const posts = [post];
+                        return loadPostsSuccess({ posts });
+                    }),
+                    catchError(unusedError => {
+                        this.openNotification(
+                            'An error occured while trying to retrieve this post?',
+                            'Cancel',
+                            3000
+                        );
+                        return EMPTY;
+                    })
+                );
+            })
+        );
+    });
+
     private openNotification(message: string, action: string, duration: number): void {
         this._snackBar.open(
             message,
@@ -104,4 +136,6 @@ export class PostsEffects {
             { duration }
         );
     }
+
+
 }

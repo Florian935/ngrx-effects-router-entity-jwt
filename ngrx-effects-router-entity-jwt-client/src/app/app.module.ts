@@ -11,6 +11,19 @@ import { environment } from '@environments/environment';
 import * as fromRoot from '@app/state';
 import * as fromLogin from '@login/state';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { CustomRouterStateSerializer } from '@app/state';
+
+const NgRxModules = [
+    StoreModule.forRoot(fromRoot.rootReducerMap),
+    EffectsModule.forRoot([fromLogin.LoginEffects]),
+    StoreDevtoolsModule.instrument({
+        maxAge: 25, logOnly: environment.production
+    }),
+    StoreRouterConnectingModule.forRoot({
+        serializer: CustomRouterStateSerializer
+    })
+];
 @NgModule({
     declarations: [
         AppComponent
@@ -19,9 +32,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
         CommonModule,
         CoreModule,
         AppRoutingModule,
-        StoreModule.forRoot(fromRoot.rootReducerMap),
-        EffectsModule.forRoot([fromLogin.LoginEffects]),
-        StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+        NgRxModules,
         BrowserAnimationsModule
     ],
     providers: [],

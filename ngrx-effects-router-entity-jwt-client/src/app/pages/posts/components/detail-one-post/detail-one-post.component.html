@@ -1,0 +1,7 @@
+<h3>Post details</h3>
+<ng-container *ngIf="post$ | async as post">
+    <div>Id: {{ post.id }}</div>
+    <div>Title: {{ post.title }}</div>
+    <div>Body: {{ post.body }}</div>
+</ng-container>
+<button [routerLink]="['/posts']">Back to posts</button>

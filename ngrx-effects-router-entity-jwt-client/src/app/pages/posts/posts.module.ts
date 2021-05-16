@@ -12,6 +12,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { EditPostsComponent } from './components/edit-posts/edit-posts.component';
 
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { DetailOnePostComponent } from './components/detail-one-post/detail-one-post.component';
 
 const materials = [
     MatSnackBarModule
@@ -22,7 +23,8 @@ const materials = [
         PostItemComponent,
         AddPostComponent,
         PostListComponent,
-        EditPostsComponent
+        EditPostsComponent,
+        DetailOnePostComponent
     ],
     imports: [
         CommonModule,

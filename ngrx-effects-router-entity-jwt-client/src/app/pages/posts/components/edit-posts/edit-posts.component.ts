@@ -16,7 +16,6 @@ export class EditPostsComponent extends UnsubscribeOnDestroyAdapter implements O
 
     constructor(
         private _formBuilder: FormBuilder,
-        private _route: ActivatedRoute,
         private _store: Store<fromPosts.PostsState>,
         private _router: Router
     ) {
@@ -24,22 +23,24 @@ export class EditPostsComponent extends UnsubscribeOnDestroyAdapter implements O
     }
 
     ngOnInit(): void {
-        this.subscriptions.add(this._route.params.subscribe((params: Params) => {
-            const id = params.id;
-            this.subscriptions.add(
-                this._store.pipe(
-                    select(fromPosts.selectPostById(id))).subscribe((post) => {
-                        this.post = post;
-                        this.buildEditForm();
-                    })
-            );
-        }));
+        this.buildEditForm();
+        this.subscriptions.add(this._store.pipe(
+            select(fromPosts.selectPostById())).subscribe((post) => {
+                if (post) {
+                    this.post = post;
+                    this.editForm.patchValue({
+                        title: post.title,
+                        body: post.body
+                    });
+                }
+            })
+        );
     }
 
     private buildEditForm(): void {
         this.editForm = this._formBuilder.group({
-            title: [this.post?.title, [Validators.required]],
-            body: [this.post?.body, [Validators.required]]
+            title: ['', [Validators.required]],
+            body: ['', [Validators.required]]
         });
     }
 
