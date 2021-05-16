@@ -1,33 +1,33 @@
-import { Update } from '@ngrx/entity';
-import { loadPostsSuccess } from './posts.actions';
-import { RouterUrlState } from '@app/state/router/router-url.state';
-import { IPost } from '@shared/index';
 import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { PostService } from '@core/index';
-import * as postsActions from '@posts/state/posts.actions';
-import { catchError, filter, map, switchMap } from 'rxjs/operators';
-import { EMPTY } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { RouterUrlState } from '@app/state/router/router-url.state';
+import { PostService } from '@core/index';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { Update } from '@ngrx/entity';
 import { RouterNavigatedAction, ROUTER_NAVIGATION } from '@ngrx/router-store';
+import * as postsActions from '@posts/state/posts.actions';
+import { IPost } from '@shared/index';
+import { EMPTY } from 'rxjs';
+import { catchError, filter, map, switchMap } from 'rxjs/operators';
+import { loadPostsSuccess } from './posts.actions';
 
 @Injectable()
 export class PostsEffects {
-
     constructor(
         private _postService: PostService,
         private _actions$: Actions,
-        private _snackBar: MatSnackBar) { }
+        private _snackBar: MatSnackBar
+    ) {}
 
     loadPosts$ = createEffect(() => {
         return this._actions$.pipe(
             ofType(postsActions.loadPosts),
-            switchMap(unusedAction => {
+            switchMap((unusedAction) => {
                 return this._postService.getAll().pipe(
                     map((posts: Array<IPost>) => {
                         return postsActions.loadPostsSuccess({ posts });
                     }),
-                    catchError(unusedError => {
+                    catchError((unusedError) => {
                         this.openNotification(
                             'An error occurred while loading posts.',
                             'Cancel',
@@ -41,13 +41,14 @@ export class PostsEffects {
     });
 
     addPost$ = createEffect(() => {
-        return this._actions$.pipe(ofType(postsActions.addPost),
+        return this._actions$.pipe(
+            ofType(postsActions.addPost),
             switchMap(({ post }) => {
                 return this._postService.insert(post).pipe(
                     map((post: IPost) => {
                         return postsActions.addPostSuccess({ post });
                     }),
-                    catchError(unusedError => {
+                    catchError((unusedError) => {
                         this.openNotification(
                             'An error occurred while trying to add this post.',
                             'Cancel',
@@ -56,7 +57,8 @@ export class PostsEffects {
                         return EMPTY;
                     })
                 );
-            }));
+            })
+        );
     });
 
     deletePost$ = createEffect(() => {
@@ -64,10 +66,10 @@ export class PostsEffects {
             ofType(postsActions.deletePost),
             switchMap(({ postId }) => {
                 return this._postService.deleteById(postId).pipe(
-                    map(unusedResponse => {
+                    map((unusedResponse) => {
                         return postsActions.deletePostSuccess({ postId });
                     }),
-                    catchError(unusedError => {
+                    catchError((unusedError) => {
                         this.openNotification(
                             'An error occurred while trying to update this post.',
                             'Cancel',
@@ -85,15 +87,15 @@ export class PostsEffects {
             ofType(postsActions.updatePost),
             switchMap(({ post }) => {
                 return this._postService.update(post).pipe(
-                    map( (updatedPost: IPost) => {
+                    map((updatedPost: IPost) => {
                         const post: Update<IPost> = {
                             id: updatedPost.id,
-                            changes: { ...updatedPost }
+                            changes: { ...updatedPost },
                         };
 
                         return postsActions.updatePostSuccess({ post });
                     }),
-                    catchError(unusedError => {
+                    catchError((unusedError) => {
                         this.openNotification(
                             'An error occurred while trying to delete this post.',
                             'Cancel',
@@ -110,10 +112,13 @@ export class PostsEffects {
         return this._actions$.pipe(
             ofType(ROUTER_NAVIGATION),
             filter((router: RouterNavigatedAction) => {
-                return router.payload.routerState.url.startsWith('/posts/details');
+                return router.payload.routerState.url.startsWith(
+                    '/posts/details'
+                );
             }),
             map((router: RouterNavigatedAction) => {
-                const routerState: RouterUrlState = router.payload.routerState as unknown as RouterUrlState;
+                const routerState: RouterUrlState = router.payload
+                    .routerState as unknown as RouterUrlState;
                 return routerState.params.id;
             }),
             switchMap((id: string) => {
@@ -122,7 +127,7 @@ export class PostsEffects {
                         const posts = [post];
                         return loadPostsSuccess({ posts });
                     }),
-                    catchError(unusedError => {
+                    catchError((unusedError) => {
                         this.openNotification(
                             'An error occured while trying to retrieve this post?',
                             'Cancel',
@@ -135,13 +140,11 @@ export class PostsEffects {
         );
     });
 
-    private openNotification(message: string, action: string, duration: number): void {
-        this._snackBar.open(
-            message,
-            action,
-            { duration }
-        );
+    private openNotification(
+        message: string,
+        action: string,
+        duration: number
+    ): void {
+        this._snackBar.open(message, action, { duration });
     }
-
-
 }
