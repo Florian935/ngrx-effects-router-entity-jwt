@@ -4,18 +4,14 @@ import { PostsState } from './posts.state';
 
 export const selectPostsState = createFeatureSelector<PostsState>(fromPosts.postsFeatureKey);
 
-const _selectPosts = (postsState: PostsState) => postsState.posts;
-
-export const selectPosts = createSelector(
+export const selectPosts = () => createSelector(
     selectPostsState,
-    _selectPosts
+    (postsState: PostsState) => postsState.posts
 );
 
-const _getPostById = (postsState: PostsState, { id }: { id: string }) => {
-    return postsState.posts.find(post => post.id === id);
-};
-
-export const selectPostById = createSelector(
+export const selectPostById = (id: string) => createSelector(
     selectPostsState,
-    _getPostById
+    (postsState: PostsState) => {
+        return postsState.posts.find(post => post.id === id);
+    }
 );

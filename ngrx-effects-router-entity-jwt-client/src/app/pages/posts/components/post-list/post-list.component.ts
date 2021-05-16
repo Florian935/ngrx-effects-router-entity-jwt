@@ -10,7 +10,7 @@ import * as fromPosts from '@posts/state';
     styleUrls: ['./post-list.component.scss']
 })
 export class PostListComponent implements OnInit {
-    posts$: Observable<Array<IPost>> = this._store.pipe(select(fromPosts.selectPosts));
+    posts$: Observable<Array<IPost>> = this._store.pipe(select(fromPosts.selectPosts()));
 
     constructor(private _store: Store<fromPosts.PostsState>) { }
 

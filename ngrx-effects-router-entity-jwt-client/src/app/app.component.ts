@@ -10,7 +10,7 @@ import * as fromLogin from '@login/state';
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-    title$: Observable<string> = this._store.pipe(select(fromApp.selectTitle));
+    title$: Observable<string> = this._store.pipe(select(fromApp.selectTitle()));
 
     constructor(private _store: Store<fromApp.RootState>) {}
 

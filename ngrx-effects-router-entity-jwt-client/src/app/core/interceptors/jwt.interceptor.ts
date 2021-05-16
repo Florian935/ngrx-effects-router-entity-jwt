@@ -17,7 +17,7 @@ export class JwtInterceptor implements HttpInterceptor {
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return this._store.pipe(
-            select(fromLogin.selectToken),
+            select(fromLogin.selectToken()),
             exhaustMap(token => {
                 req = token ? this.cloneAndAddAuthHeader(req, token) : req;
 

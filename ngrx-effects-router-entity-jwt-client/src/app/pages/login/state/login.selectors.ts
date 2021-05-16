@@ -4,23 +4,17 @@ import { LoginState } from '@login/state/login.state';
 
 const selectLoginState = createFeatureSelector<LoginState>(fromLogin.loginFeatureKey);
 
-const _selectConnectedUser = (loginState: LoginState) => loginState.user;
-
-export const selectConnectedUser = createSelector(
+export const selectConnectedUser = () => createSelector(
     selectLoginState,
-    _selectConnectedUser
+    (loginState: LoginState) => loginState.user
 );
 
-const _selectToken = (loginState: LoginState) => loginState.jwt?.token;
-
-export const selectToken = createSelector(
+export const selectToken = () => createSelector(
     selectLoginState,
-    _selectToken
+    (loginState: LoginState) => loginState.jwt?.token
 );
 
-const _selectErrorMessage = (loginState: LoginState) => loginState.errorMessage;
-
-export const selectErrorMessage = createSelector(
+export const selectErrorMessage = () => createSelector(
     selectLoginState,
-    _selectErrorMessage
+    (loginState: LoginState) => loginState.errorMessage
 );

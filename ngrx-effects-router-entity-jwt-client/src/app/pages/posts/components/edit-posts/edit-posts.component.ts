@@ -28,7 +28,7 @@ export class EditPostsComponent extends UnsubscribeOnDestroyAdapter implements O
             const id = params.id;
             this.subscriptions.add(
                 this._store.pipe(
-                    select(fromPosts.selectPostById, { id })).subscribe((post) => {
+                    select(fromPosts.selectPostById(id))).subscribe((post) => {
                         this.post = post;
                         this.buildEditForm();
                     })

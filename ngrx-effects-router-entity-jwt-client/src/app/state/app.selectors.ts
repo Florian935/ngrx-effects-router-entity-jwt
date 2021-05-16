@@ -4,9 +4,7 @@ import * as fromApp from './app.reducers';
 
 export const selectAppState = createFeatureSelector<AppState>(fromApp.appFeatureKey);
 
-export const _selectTitle = (state: AppState) => state.title;
-
-export const selectTitle = createSelector(
+export const selectTitle = () => createSelector(
     selectAppState,
-    _selectTitle
+    (state: AppState) => state.title
 );
